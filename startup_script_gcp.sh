@@ -1,7 +1,11 @@
 #!/bin/bash
 set -e
 
-APP_USER="shhara"
+APP_USER="tomgluz"
+if ! id -u "$APP_USER" >/dev/null 2>&1; then
+  useradd -m -s /bin/bash "$APP_USER"
+fi
+
 APP_HOME="/home/${APP_USER}"
 VENV_DIR="${APP_HOME}/venv"
 
