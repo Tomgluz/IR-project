@@ -1,9 +1,9 @@
-INSTANCE_NAME="instance-1"
+INSTANCE_NAME="instance-666"
 REGION=us-central1
 ZONE=us-central1-c
-PROJECT_NAME="YOUR_PROJECT_NAME_HERE"
+PROJECT_NAME="irproject2026"
 IP_NAME="$PROJECT_NAME-ip"
-GOOGLE_ACCOUNT_NAME="YOUR_ACCOUNT_NAME_HERE" # without the @post.bgu.ac.il or @gmail.com part
+GOOGLE_ACCOUNT_NAME="tomgluz" # without the @post.bgu.ac.il or @gmail.com part
 
 # 0. Install Cloud SDK on your local machine or using Could Shell
 # check that you have a proper active account listed
@@ -17,7 +17,7 @@ gcloud config list
 # 1. Set up public IP
 gcloud compute addresses create $IP_NAME --project=$PROJECT_NAME --region=$REGION
 gcloud compute addresses list
-# note the IP address printed above, that's your extrenal IP address.
+# note the IP address printed above, that's your extrenal IP address. (OURS IP IS 34.10.49.222)
 INSTANCE_IP=$(gcloud compute addresses describe $IP_NAME --region=$REGION --format="get(address)")
 
 # 2. Create Firewall rule to allow traffic to port 8080 on the instance
@@ -29,7 +29,7 @@ gcloud compute firewall-rules create default-allow-http-8080 \
 # 3. Create the instance. Change to a larger instance (larger than e2-micro) as needed.
 gcloud compute instances create $INSTANCE_NAME \
   --zone=$ZONE \
-  --machine-type=e2-micro \
+  --machine-type=e2-medium \
   --network-interface=address=$INSTANCE_IP,network-tier=PREMIUM,subnet=default \
   --metadata-from-file startup-script=startup_script_gcp.sh \
   --scopes=https://www.googleapis.com/auth/cloud-platform \
