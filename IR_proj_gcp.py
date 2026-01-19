@@ -109,7 +109,6 @@ class InvertedIndex:
             self._posting_list[w].append((doc_id, cnt))
 
     def write_index(self, base_dir, name, bucket_name=None):
-        # --- תיקון: יצירת התיקייה אם היא לא קיימת ---
         if not os.path.exists(base_dir):
             os.makedirs(base_dir, exist_ok=True)
         
@@ -321,7 +320,6 @@ class InvertedIndex:
             self._posting_list[w].append((doc_id, cnt))
 
     def write_index(self, base_dir, name, bucket_name=None):
-        # *** תיקון קריטי: יצירת התיקייה לפני שמירה ***
         if not os.path.exists(base_dir):
             os.makedirs(base_dir, exist_ok=True)
             
@@ -467,8 +465,7 @@ def create_index(source_col, index_folder_name, is_anchor=False):
     inverted = InvertedIndex()
     inverted.posting_locs = super_posting_locs
     inverted.df = w2df_dict
-    
-    # *** הגנה נוספת מפני קריסה: יצירת התיקייה ידנית גם כאן ***
+
     if not os.path.exists(index_folder_name):
         os.makedirs(index_folder_name, exist_ok=True)
 
